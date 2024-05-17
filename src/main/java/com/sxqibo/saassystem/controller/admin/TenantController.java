@@ -80,4 +80,22 @@ public class TenantController extends BaseController
     {
         return toAjax(tenantService.insertTenant(tenantDTO));
     }
+
+    @GetMapping("edit")
+    public BaseResponse getInfo(@RequestParam("id") String id)
+    {
+        return BaseResponse.success(tenantService.selectTenantById(id));
+    }
+
+    @PostMapping("edit")
+    public BaseResponse edit(@RequestBody TenantDTO tenantDTO)
+    {
+        return toAjax(tenantService.updateTenant(tenantDTO));
+    }
+
+    @DeleteMapping("del")
+    public BaseResponse del(@RequestParam(name = "ids[]", required = true) String[] ids)
+    {
+        return toAjax(tenantService.deleteTenant(ids));
+    }
 }

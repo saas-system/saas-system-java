@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,5 +54,28 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         tenant.setExpireTime(tenantDTO.getExpireTime());
 
         return tenantMapper.insert(tenant);
+    }
+
+    @Override
+    public Tenant selectTenantById(String id)
+    {
+        return tenantMapper.selectById(id);
+    }
+
+    @Override
+    public int updateTenant(TenantDTO tenantDTO)
+    {
+        Tenant tenant = new Tenant();
+
+        BeanUtils.copyProperties(tenantDTO, tenant);
+        tenant.setExpireTime(tenantDTO.getExpireTime());
+
+        return tenantMapper.updateById(tenant);
+    }
+
+    @Override
+    public int deleteTenant(String[] ids)
+    {
+        return tenantMapper.deleteBatchIds(Arrays.asList(ids));
     }
 }

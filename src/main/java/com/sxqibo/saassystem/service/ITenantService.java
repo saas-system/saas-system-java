@@ -22,4 +22,10 @@ public interface ITenantService extends IService<Tenant>
     List<Tenant> queryList(Tenant tenant);
 
     int insertTenant(TenantDTO tenantDTO);
+
+    Tenant selectTenantById(String id);
+
+    int updateTenant(TenantDTO tenantDTO);
+
+    int deleteTenant(String[] ids);
 }
