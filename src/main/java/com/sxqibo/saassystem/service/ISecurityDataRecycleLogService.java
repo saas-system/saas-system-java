@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author JiYun
  * @since 2024-05-15
  */
-public interface ISecurityDataRecycleLogService extends IService<SecurityDataRecycleLog> {
+public interface ISecurityDataRecycleLogService extends IService<SecurityDataRecycleLog>
+{
 
 }

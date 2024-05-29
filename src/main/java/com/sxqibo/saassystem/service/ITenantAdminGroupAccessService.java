@@ -1,6 +1,6 @@
 package com.sxqibo.saassystem.service;
 
-import com.sxqibo.saassystem.entity.TenantAdminGroupAccess;
+import com.sxqibo.saassystem.entity.tenant.TenantAdminGroupAccess;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

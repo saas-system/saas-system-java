@@ -1,6 +1,6 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.PlatformAdminGroupAccess;
+import com.sxqibo.saassystem.entity.admin.PlatformAdminGroupAccess;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

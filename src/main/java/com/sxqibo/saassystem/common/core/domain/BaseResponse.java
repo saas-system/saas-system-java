@@ -11,6 +11,18 @@ public class BaseResponse<T> implements Serializable
     private T data;
     private Long time;
 
+    private boolean success;
+
+    public boolean isSuccess()
+    {
+        return success;
+    }
+
+    public void setSuccess(boolean success)
+    {
+        this.success = success;
+    }
+
     public static <T> BaseResponse<T> success(T data)
     {
         BaseResponse<T> response = new BaseResponse<T>();
@@ -38,6 +50,17 @@ public class BaseResponse<T> implements Serializable
 
         response.setCode(code);
         response.setMsg(message);
+
+        return response;
+    }
+
+    public static <T> BaseResponse<T> fail(String code, String message, boolean success)
+    {
+        BaseResponse<T> response = new BaseResponse<T>();
+
+        response.setCode(code);
+        response.setMsg(message);
+        response.setSuccess(success);
 
         return response;
     }

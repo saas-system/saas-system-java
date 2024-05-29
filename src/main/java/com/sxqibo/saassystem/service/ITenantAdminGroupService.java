@@ -1,7 +1,9 @@
 package com.sxqibo.saassystem.service;
 
-import com.sxqibo.saassystem.entity.TenantAdminGroup;
+import com.sxqibo.saassystem.entity.tenant.TenantAdminGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITenantAdminGroupService extends IService<TenantAdminGroup> {
 
+    Set<String> selectGroupNamesByUserId(Integer userId);
 }

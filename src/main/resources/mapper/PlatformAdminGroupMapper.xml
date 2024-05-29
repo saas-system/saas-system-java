@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sxqibo.saassystem.mapper.PlatformAdminGroupMapper">
 
+
+    <select id="selectGroupNamesByUserId" parameterType="Integer" resultType="String">
+        select pag.name from platform_admin_group pag
+         left join platform_admin_group_access paga on paga.group_id = pag.id
+         left join platform_admin pa on pa.id = paga.uid
+        where pa.id = #{userId} and pa.status = '1' and pag.status = '1'
+    </select>
+
+    <select id="selectGroupRules" parameterType="Integer" resultType="java.lang.String">
+        select pag.rules from platform_admin_group pag
+                                 left join platform_admin_group_access paga on paga.group_id = pag.id
+                                 left join platform_admin pa on pa.id = paga.uid
+        where pa.id = #{userId} and pa.status = '1' and pag.status = '1'
+    </select>
 </mapper>

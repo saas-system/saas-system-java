@@ -1,4 +1,4 @@
-package com.sxqibo.saassystem.entity;
+package com.sxqibo.saassystem.entity.tenant;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,14 +7,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 平台 - 管理权限分组表
+ * 租户 - 管理权限分组表
  * </p>
  *
  * @author JiYun
  * @since 2024-05-15
  */
-@TableName("platform_admin_group_access")
-public class PlatformAdminGroupAccess implements Serializable {
+@TableName("tenant_admin_group_access")
+public class TenantAdminGroupAccess implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,6 +25,11 @@ public class PlatformAdminGroupAccess implements Serializable {
      * 管理员ID
      */
     private Integer uid;
+
+    /**
+     * 租户ID
+     */
+    private String tenantId;
 
     /**
      * 分组ID
@@ -45,6 +50,13 @@ public class PlatformAdminGroupAccess implements Serializable {
     public void setUid(Integer uid) {
         this.uid = uid;
     }
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
     public Integer getGroupId() {
         return groupId;
     }
@@ -55,9 +67,10 @@ public class PlatformAdminGroupAccess implements Serializable {
 
     @Override
     public String toString() {
-        return "PlatformAdminGroupAccess{" +
+        return "TenantAdminGroupAccess{" +
             "id=" + id +
             ", uid=" + uid +
+            ", tenantId=" + tenantId +
             ", groupId=" + groupId +
         "}";
     }

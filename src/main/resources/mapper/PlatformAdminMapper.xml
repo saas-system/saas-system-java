@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sxqibo.saassystem.mapper.PlatformAdminMapper">
 
+    <resultMap id="adminResult" type="com.sxqibo.saassystem.entity.admin.PlatformAdmin">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+
+        <collection property="groups" javaType="java.util.List" resultMap="groupResult"/>
+    </resultMap>
+
+    <resultMap id="groupResult" type="com.sxqibo.saassystem.entity.admin.PlatformAdminGroup">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="rules" column="rules"/>
+    </resultMap>
+
+    <select id="selectAdminByUsername" parameterType="string"
+            resultMap="adminResult">
+        select pa.id, pa.username, pa.password,
+               pag.id, pag.name, pag.rules
+        from platform_admin pa
+                 left join platform_admin_group_access paga on paga.uid = pa.id
+                 left join platform_admin_group pag on pag.id = paga.group_id
+        where pa.username = #{username}
+    </select>
 </mapper>

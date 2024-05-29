@@ -2,6 +2,7 @@ package com.sxqibo.saassystem.mapper;
 
 import com.sxqibo.saassystem.entity.admin.PlatformAdmin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author JiYun
  * @since 2024-05-15
  */
-public interface PlatformAdminMapper extends BaseMapper<PlatformAdmin> {
-
+@Mapper
+public interface PlatformAdminMapper extends BaseMapper<PlatformAdmin>
+{
+    /**
+     * 通过用户名查询用户
+     * @param username
+     * @return
+     */
+    PlatformAdmin selectAdminByUsername(String username);
 }

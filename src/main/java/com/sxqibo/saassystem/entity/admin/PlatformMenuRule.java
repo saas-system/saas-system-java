@@ -1,20 +1,22 @@
-package com.sxqibo.saassystem.entity;
+package com.sxqibo.saassystem.entity.admin;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
- * 租户 - 菜单和权限规则表
+ * 平台 - 菜单和权限规则表
  * </p>
  *
  * @author JiYun
  * @since 2024-05-15
  */
-@TableName("tenant_menu_rule")
-public class TenantMenuRule implements Serializable {
+@TableName("platform_menu_rule")
+public class PlatformMenuRule implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -92,14 +94,16 @@ public class TenantMenuRule implements Serializable {
     private String status;
 
     /**
+     * 更新时间
+     */
+    private Long updateTime;
+
+    /**
      * 创建时间
      */
     private Long createTime;
 
-    /**
-     * 更新时间
-     */
-    private Long updateTime;
+    private List<PlatformMenuRule> children = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -206,13 +210,6 @@ public class TenantMenuRule implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
     public Long getUpdateTime() {
         return updateTime;
     }
@@ -220,27 +217,46 @@ public class TenantMenuRule implements Serializable {
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public List<PlatformMenuRule> getChildren()
+    {
+        return children;
+    }
+
+    public void setChildren(List<PlatformMenuRule> children)
+    {
+        this.children = children;
+    }
 
     @Override
-    public String toString() {
-        return "TenantMenuRule{" +
-            "id=" + id +
-            ", pid=" + pid +
-            ", type=" + type +
-            ", title=" + title +
-            ", name=" + name +
-            ", path=" + path +
-            ", icon=" + icon +
-            ", menuType=" + menuType +
-            ", url=" + url +
-            ", component=" + component +
-            ", keepalive=" + keepalive +
-            ", extend=" + extend +
-            ", remark=" + remark +
-            ", weigh=" + weigh +
-            ", status=" + status +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-        "}";
+    public String toString()
+    {
+        return "PlatformMenuRule{" +
+                "id=" + id +
+                ", pid=" + pid +
+                ", type='" + type + '\'' +
+                ", title='" + title + '\'' +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", icon='" + icon + '\'' +
+                ", menuType='" + menuType + '\'' +
+                ", url='" + url + '\'' +
+                ", component='" + component + '\'' +
+                ", keepalive=" + keepalive +
+                ", extend='" + extend + '\'' +
+                ", remark='" + remark + '\'' +
+                ", weigh=" + weigh +
+                ", status='" + status + '\'' +
+                ", updateTime=" + updateTime +
+                ", createTime=" + createTime +
+                ", children=" + children +
+                '}';
     }
 }

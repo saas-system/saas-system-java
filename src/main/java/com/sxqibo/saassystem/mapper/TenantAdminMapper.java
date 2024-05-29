@@ -1,7 +1,8 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.TenantAdmin;
+import com.sxqibo.saassystem.entity.tenant.TenantAdmin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author JiYun
  * @since 2024-05-15
  */
-public interface TenantAdminMapper extends BaseMapper<TenantAdmin> {
-
+@Mapper
+public interface TenantAdminMapper extends BaseMapper<TenantAdmin>
+{
+    TenantAdmin selectAdminByUsername(String username);
 }

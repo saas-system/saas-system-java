@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sxqibo.saassystem.mapper.TenantAdminGroupMapper">
 
+    <select id="selectGroupNamesByUserId" parameterType="Integer" resultType="java.lang.String">
+        select tag.name from tenant_admin_group tag
+                                 left join tenant_admin_group_access taga on taga.group_id = tag.id
+                                 left join tenant_admin ta on ta.id = taga.uid
+        where ta.id = #{userId} and ta.status = '1' and tag.status = '1'
+    </select>
+
+    <select id="selectGroupRules" parameterType="Integer" resultType="java.lang.String">
+        select tag.rules from tenant_admin_group tag
+                                  left join tenant_admin_group_access taga on taga.group_id = tag.id
+                                  left join tenant_admin ta on ta.id = taga.uid
+        where ta.id = #{userId} and ta.status = '1' and tag.status = '1'
+    </select>
+
 </mapper>

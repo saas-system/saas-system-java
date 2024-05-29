@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sxqibo.saassystem.mapper.TenantAdminMapper">
 
+    <resultMap id="tenantAdminResult" type="com.sxqibo.saassystem.entity.tenant.TenantAdmin">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="password" column="password"/>
+
+        <association property="tenant" column="tenant_id" javaType="com.sxqibo.saassystem.entity.admin.Tenant" resultMap="tenantResult"/>
+        <collection property="groups" javaType="java.util.List" resultMap="groupResult"/>
+    </resultMap>
+
+    <resultMap id="tenantResult" type="com.sxqibo.saassystem.entity.admin.Tenant">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <resultMap id="groupResult" type="com.sxqibo.saassystem.entity.tenant.TenantAdminGroup">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="rules" column="rules"/>
+    </resultMap>
+
+    <select id="selectAdminByUsername" resultType="com.sxqibo.saassystem.entity.tenant.TenantAdmin">
+        select ta.id, ta.username, ta.password, ta.tenant_id,
+               t.id, t.name,
+               tag.id, tag.name, tag.rules
+        from tenant_admin ta
+                 left join tenant t on t.id = ta.tenant_id
+                 left join tenant_admin_group_access taga on taga.uid = ta.id
+                 left join tenant_admin_group tag on tag.id = taga.group_id
+        where ta.username = #{username}
+    </select>
 </mapper>

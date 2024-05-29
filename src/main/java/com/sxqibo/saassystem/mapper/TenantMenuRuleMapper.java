@@ -1,7 +1,9 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.TenantMenuRule;
+import com.sxqibo.saassystem.entity.tenant.TenantMenuRule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TenantMenuRuleMapper extends BaseMapper<TenantMenuRule> {
 
+    List<String> selectGroupMenusByMenuIds(List<String> menus);
 }

@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sxqibo.saassystem.mapper.TenantMenuRuleMapper">
 
+
+    <select id="selectGroupMenusByMenuIds" parameterType="long" resultType="java.lang.String">
+        SELECT name FROM tenant_menu_rule
+        WHERE id IN
+        <foreach item="itemName" index="index" collection="menuIds" separator="," open="(" close=")">
+            #{itemName}
+        </foreach>
+        and status ='1'
+    </select>
 </mapper>

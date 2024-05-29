@@ -32,4 +32,15 @@ public class GlobalExceptionHandler
 
         return BaseResponse.fail("400", message);
     }
+
+    /**
+     * 业务异常处理
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(CustomException.class)
+    public BaseResponse businessException(CustomException e)
+    {
+        return BaseResponse.fail(e.getCode().toString(), e.getMsg(), e.isSuccess());
+    }
 }

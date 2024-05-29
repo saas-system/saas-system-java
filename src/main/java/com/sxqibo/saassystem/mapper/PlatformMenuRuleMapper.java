@@ -1,7 +1,10 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.PlatformMenuRule;
+import com.sxqibo.saassystem.entity.admin.PlatformMenuRule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +14,20 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author JiYun
  * @since 2024-05-15
  */
-public interface PlatformMenuRuleMapper extends BaseMapper<PlatformMenuRule> {
+@Mapper
+public interface PlatformMenuRuleMapper extends BaseMapper<PlatformMenuRule>
+{
+    /**
+     *
+     */
+    List<String> selectGroupMenusByMenuIds(List<String> menuIds);
 
+    /**
+     * 用户为超级管理员查询全部菜单信息
+     * @return
+     */
+    List<PlatformMenuRule> selectMenuTreeAll();
+
+
+    List<PlatformMenuRule> selectMenuTreeByIds(List<String> menuIds);
 }

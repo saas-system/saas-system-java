@@ -1,7 +1,9 @@
 package com.sxqibo.saassystem.service;
 
-import com.sxqibo.saassystem.entity.PlatformAdminGroup;
+import com.sxqibo.saassystem.entity.admin.PlatformAdminGroup;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -11,6 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author JiYun
  * @since 2024-05-15
  */
-public interface IPlatformAdminGroupService extends IService<PlatformAdminGroup> {
-
+public interface IPlatformAdminGroupService extends IService<PlatformAdminGroup>
+{
+    /**
+     * 根据用户id查询用户信息
+     * @param userId
+     * @return
+     */
+    Set<String> selectGroupNamesByUserId(Integer userId);
 }

@@ -1,4 +1,4 @@
-package com.sxqibo.saassystem.entity;
+package com.sxqibo.saassystem.entity.tenant;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,14 +7,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 平台 - 菜单和权限规则表
+ * 租户 - 菜单和权限规则表
  * </p>
  *
  * @author JiYun
  * @since 2024-05-15
  */
-@TableName("platform_menu_rule")
-public class PlatformMenuRule implements Serializable {
+@TableName("tenant_menu_rule")
+public class TenantMenuRule implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -92,14 +92,14 @@ public class PlatformMenuRule implements Serializable {
     private String status;
 
     /**
-     * 更新时间
-     */
-    private Long updateTime;
-
-    /**
      * 创建时间
      */
     private Long createTime;
+
+    /**
+     * 更新时间
+     */
+    private Long updateTime;
 
     public Integer getId() {
         return id;
@@ -206,13 +206,6 @@ public class PlatformMenuRule implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
-    }
     public Long getCreateTime() {
         return createTime;
     }
@@ -220,10 +213,17 @@ public class PlatformMenuRule implements Serializable {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
+    }
 
     @Override
     public String toString() {
-        return "PlatformMenuRule{" +
+        return "TenantMenuRule{" +
             "id=" + id +
             ", pid=" + pid +
             ", type=" + type +
@@ -239,8 +239,8 @@ public class PlatformMenuRule implements Serializable {
             ", remark=" + remark +
             ", weigh=" + weigh +
             ", status=" + status +
-            ", updateTime=" + updateTime +
             ", createTime=" + createTime +
+            ", updateTime=" + updateTime +
         "}";
     }
 }

@@ -1,9 +1,10 @@
 package com.sxqibo.saassystem.entity.admin;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -84,12 +85,20 @@ public class PlatformAdmin implements Serializable {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long createTime;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
+
+    @TableField(exist = false)
+    private List<PlatformAdminGroup> groups;
+
+    @TableField(exist = false)
+    private Long[] groupIds;
 
     public Integer getId() {
         return id;
@@ -197,24 +206,47 @@ public class PlatformAdmin implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public List<PlatformAdminGroup> getGroups()
+    {
+        return groups;
+    }
+
+    public void setGroups(List<PlatformAdminGroup> groups)
+    {
+        this.groups = groups;
+    }
+
+    public Long[] getGroupIds()
+    {
+        return groupIds;
+    }
+
+    public void setGroupIds(Long[] groupIds)
+    {
+        this.groupIds = groupIds;
+    }
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "PlatformAdmin{" +
-            "id=" + id +
-            ", username=" + username +
-            ", nickname=" + nickname +
-            ", avatar=" + avatar +
-            ", email=" + email +
-            ", mobile=" + mobile +
-            ", loginFailure=" + loginFailure +
-            ", lastLoginTime=" + lastLoginTime +
-            ", lastLoginIp=" + lastLoginIp +
-            ", password=" + password +
-            ", salt=" + salt +
-            ", motto=" + motto +
-            ", status=" + status +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-        "}";
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", loginFailure=" + loginFailure +
+                ", lastLoginTime=" + lastLoginTime +
+                ", lastLoginIp='" + lastLoginIp + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", motto='" + motto + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", groups=" + groups +
+                ", groupIds=" + Arrays.toString(groupIds) +
+                '}';
     }
 }

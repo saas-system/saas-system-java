@@ -1,7 +1,9 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.TenantAdminGroup;
+import com.sxqibo.saassystem.entity.tenant.TenantAdminGroup;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TenantAdminGroupMapper extends BaseMapper<TenantAdminGroup> {
 
+    List<String> selectGroupNamesByUserId(Integer userId);
+
+    List<String> selectGroupRules(Integer userId);
 }

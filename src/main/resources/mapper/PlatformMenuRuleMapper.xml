@@ -2,4 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sxqibo.saassystem.mapper.PlatformMenuRuleMapper">
 
+    <resultMap type="com.sxqibo.saassystem.entity.admin.PlatformMenuRule" id="PlatformMenuRuleMap">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="type" property="type" javaType="String"/>
+        <result column="title" property="title" javaType="String"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="path" property="path" javaType="String"/>
+        <result column="icon" property="icon" javaType="String"/>
+        <result column="menu_type" property="menuType" javaType="String"/>
+        <result column="url" property="url" javaType="String"/>
+        <result column="component" property="component" javaType="String"/>
+        <result column="keepalive" property="keepalive" javaType="Boolean"/>
+        <result column="extend" property="extend" javaType="String"/>
+        <result column="remark" property="remark" javaType="String"/>
+        <result column="weigh" property="weigh" javaType="Integer"/>
+        <result column="status" property="status" javaType="String"/>
+        <result column="update_time" property="updateTime" javaType="Long"/>
+        <result column="create_time" property="createTime" javaType="Long"/>
+    </resultMap>
+
+    <select id="selectGroupMenusByMenuIds" parameterType="long" resultType="java.lang.String">
+        SELECT name FROM platform_menu_rule
+        WHERE id IN
+        <foreach item="itemName" index="index" collection="menuIds" separator="," open="(" close=")">
+            #{itemName}
+        </foreach>
+        and status ='1'
+    </select>
+
+    <select id="selectMenuTreeAll"
+            resultMap="PlatformMenuRuleMap">
+        select * from platform_menu_rule
+            where type in ('menu_dir', 'menu') and status = '1'
+    </select>
+
+    <select id="selectMenuTreeByIds" parameterType="long" resultMap="PlatformMenuRuleMap">
+        SELECT * FROM platform_menu_rule
+        WHERE id IN
+        <foreach item="itemName" index="index" collection="menuIds" separator="," open="(" close=")">
+            #{itemName}
+        </foreach>
+        and type in ('menu_dir', 'menu') and status ='1'
+    </select>
 </mapper>

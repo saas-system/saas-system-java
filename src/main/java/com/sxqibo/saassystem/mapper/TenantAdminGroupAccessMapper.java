@@ -1,6 +1,6 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.TenantAdminGroupAccess;
+import com.sxqibo.saassystem.entity.tenant.TenantAdminGroupAccess;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

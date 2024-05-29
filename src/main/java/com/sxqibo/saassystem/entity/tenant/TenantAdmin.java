@@ -1,9 +1,11 @@
-package com.sxqibo.saassystem.entity;
+package com.sxqibo.saassystem.entity.tenant;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.sxqibo.saassystem.entity.admin.Tenant;
+
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -94,12 +96,23 @@ public class TenantAdmin implements Serializable {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long createTime;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
+
+    @TableField(exist = false)
+    private List<TenantAdminGroup> groups;
+
+    @TableField(exist = false)
+    private Long[] groupIds;
+
+    @TableField(exist = false)
+    private Tenant tenant;
 
     public Integer getId() {
         return id;
@@ -221,26 +234,70 @@ public class TenantAdmin implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Boolean getPlatformAdmin()
+    {
+        return isPlatformAdmin;
+    }
+
+    public void setPlatformAdmin(Boolean platformAdmin)
+    {
+        isPlatformAdmin = platformAdmin;
+    }
+
+    public List<TenantAdminGroup> getGroups()
+    {
+        return groups;
+    }
+
+    public void setGroups(List<TenantAdminGroup> groups)
+    {
+        this.groups = groups;
+    }
+
+    public Long[] getGroupIds()
+    {
+        return groupIds;
+    }
+
+    public void setGroupIds(Long[] groupIds)
+    {
+        this.groupIds = groupIds;
+    }
+
+    public Tenant getTenant()
+    {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant)
+    {
+        this.tenant = tenant;
+    }
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "TenantAdmin{" +
-            "id=" + id +
-            ", username=" + username +
-            ", tenantId=" + tenantId +
-            ", nickname=" + nickname +
-            ", avatar=" + avatar +
-            ", email=" + email +
-            ", mobile=" + mobile +
-            ", loginFailure=" + loginFailure +
-            ", lastLoginTime=" + lastLoginTime +
-            ", lastLoginIp=" + lastLoginIp +
-            ", password=" + password +
-            ", salt=" + salt +
-            ", motto=" + motto +
-            ", status=" + status +
-            ", isPlatformAdmin=" + isPlatformAdmin +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-        "}";
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", tenantId='" + tenantId + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", loginFailure=" + loginFailure +
+                ", lastLoginTime=" + lastLoginTime +
+                ", lastLoginIp='" + lastLoginIp + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", motto='" + motto + '\'' +
+                ", status='" + status + '\'' +
+                ", isPlatformAdmin=" + isPlatformAdmin +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", groups=" + groups +
+                ", groupIds=" + Arrays.toString(groupIds) +
+                ", tenant=" + tenant +
+                '}';
     }
 }

@@ -1,7 +1,9 @@
 package com.sxqibo.saassystem.service;
 
-import com.sxqibo.saassystem.entity.TenantMenuRule;
+import com.sxqibo.saassystem.entity.tenant.TenantMenuRule;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITenantMenuRuleService extends IService<TenantMenuRule> {
 
+    Set<String> selectGroupMenusByUserId(Integer userId);
 }

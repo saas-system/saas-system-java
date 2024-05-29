@@ -3,14 +3,24 @@ package com.sxqibo.saassystem.controller.admin;
 
 import com.sxqibo.saassystem.common.core.domain.BaseResponse;
 import com.sxqibo.saassystem.common.core.exception.BaseException;
+import com.sxqibo.saassystem.common.util.ChainedMap;
+import com.sxqibo.saassystem.common.util.ServletUtils;
 import com.sxqibo.saassystem.dto.admin.AdminLoginDTO;
+import com.sxqibo.saassystem.entity.LoginUser;
+import com.sxqibo.saassystem.entity.admin.PlatformAdmin;
+import com.sxqibo.saassystem.entity.admin.PlatformMenuRule;
+import com.sxqibo.saassystem.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -24,20 +34,64 @@ import java.util.List;
 @RequestMapping("/admin/index")
 public class PlatformAdminController
 {
+    @Autowired
+    private ISysLoginService sysLoginService;
+
+    @Autowired
+    private ISysPermissionService sysPermissionService;
+
+    @Autowired
+    private ITokenService tokenService;
+
+    @Autowired
+    private IPlatformMenuRuleService platformMenuRuleService;
+
     @PostMapping("login")
-    public BaseResponse<AdminLoginDTO> login(@RequestBody AdminLoginDTO requestBody)
+    public BaseResponse login(@RequestBody AdminLoginDTO requestBody)
     {
-        return BaseResponse.success(requestBody);
+        // 生成令牌
+        String token = sysLoginService.login(requestBody.getUsername() + "@platform", requestBody.getPassword(),
+                requestBody.getCaptchaId(), requestBody.getCaptchaInfo());
+
+        return BaseResponse.success(token);
     }
 
-    @PostMapping("login1")
-    public BaseResponse<AdminLoginDTO> login1(@RequestBody @Validated AdminLoginDTO requestBody)
+    /**
+     * 获取用户信息及权限信息
+     * @return
+     */
+    @GetMapping("getInfo")
+    public BaseResponse getInfo()
     {
-        return BaseResponse.success(requestBody);
+        // 用户信息
+        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        PlatformAdmin platformAdmin = loginUser.getPlatformAdmin();
+
+        // 角色集合
+        Set<String> groupRule = sysPermissionService.getGroupRule(platformAdmin);
+        // 权限集合
+        Set<String> menu = sysPermissionService.getMenu(platformAdmin);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", platformAdmin);
+        map.put("group", groupRule);
+        map.put("menu", menu);
+
+        return BaseResponse.success(map);
     }
-    @GetMapping("queryQuery")
-    public BaseResponse queryQuery()
+
+    /**
+     * 获取路由信息（菜单）
+     * @return
+     */
+    @GetMapping("getRouters")
+    public BaseResponse getRouters()
     {
-        throw new BaseException("500", "测试异常类");
+        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        PlatformAdmin platformAdmin = loginUser.getPlatformAdmin();
+        List<PlatformMenuRule> platformMenuRules =
+                platformMenuRuleService.selectMenuTreeByUserId(platformAdmin.getId());
+
+        return BaseResponse.success(platformMenuRules);
     }
 }
