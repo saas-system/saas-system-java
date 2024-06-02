@@ -7,8 +7,9 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   data:
     redis:
-      host: ${REDIS_HOSTPORT}
+      host: ${REDIS_HOSTNAME}
       port: ${REDIS_PORT}
+      username: ${REDIS_USERNAME}
       password: ${REDIS_PASSWORD}
       timeout: 10s
       jedis:
