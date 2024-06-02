@@ -1,8 +1,8 @@
 package com.sxqibo.saassystem.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.sxqibo.saassystem.dto.admin.AreaDTO;
 import com.sxqibo.saassystem.entity.Area;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -16,5 +16,9 @@ import java.util.List;
  */
 public interface IAreaService extends IService<Area>
 {
+    /**
+     *
+     * @return
+     */
     List<AreaDTO> findAllAsTree();
 }

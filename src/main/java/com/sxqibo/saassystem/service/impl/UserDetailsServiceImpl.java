@@ -4,8 +4,11 @@ import com.sxqibo.saassystem.common.core.exception.BaseException;
 import com.sxqibo.saassystem.common.enums.UserStatus;
 import com.sxqibo.saassystem.entity.LoginUser;
 import com.sxqibo.saassystem.entity.admin.PlatformAdmin;
+import com.sxqibo.saassystem.entity.admin.PlatformAdminGroup;
 import com.sxqibo.saassystem.entity.tenant.TenantAdmin;
+import com.sxqibo.saassystem.entity.tenant.TenantAdminGroup;
 import com.sxqibo.saassystem.service.IPlatformAdminService;
+import com.sxqibo.saassystem.service.ISysPermissionService;
 import com.sxqibo.saassystem.service.ITenantAdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +18,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 用户验证处理
@@ -31,6 +36,9 @@ public class UserDetailsServiceImpl implements UserDetailsService
 
     @Autowired
     private ITenantAdminService tenantAdminService;
+
+    @Autowired
+    private ISysPermissionService permissionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -70,6 +78,36 @@ public class UserDetailsServiceImpl implements UserDetailsService
         }
 
         LOGGER.info("登录用户：{} 登录成功", username);
-        return !Objects.isNull(platformAdmin) ? new LoginUser(platformAdmin) : new LoginUser(tenantAdmin);
+        return !Objects.isNull(platformAdmin) ? createLoginUser(platformAdmin) : createLoginUser(tenantAdmin);
+    }
+
+    private UserDetails createLoginUser(PlatformAdmin platformAdmin)
+    {
+        Set<String> menuPermission = new HashSet<>();
+        for (PlatformAdminGroup group : platformAdmin.getGroups()) {
+            if ("*".equals(group.getRules())) {
+                menuPermission.add("*");
+                return new LoginUser(platformAdmin, menuPermission);
+            }
+        }
+
+        menuPermission = permissionService.getMenu(platformAdmin);
+
+        return new LoginUser(platformAdmin, menuPermission);
+    }
+
+    private UserDetails createLoginUser(TenantAdmin tenantAdmin)
+    {
+        Set<String> menuPermission = new HashSet<>();
+        for (TenantAdminGroup group : tenantAdmin.getGroups()) {
+            if ("*".equals(group.getRules())) {
+                menuPermission.add("*");
+                return new LoginUser(tenantAdmin, menuPermission);
+            }
+        }
+
+        menuPermission = permissionService.getMenu(tenantAdmin);
+
+        return new LoginUser(tenantAdmin, menuPermission);
     }
 }

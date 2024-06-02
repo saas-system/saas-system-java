@@ -1,12 +1,12 @@
 package com.sxqibo.saassystem.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxqibo.saassystem.dto.admin.TenantDTO;
 import com.sxqibo.saassystem.dto.admin.TenantIndexDTO;
 import com.sxqibo.saassystem.entity.admin.Tenant;
 import com.sxqibo.saassystem.mapper.TenantMapper;
 import com.sxqibo.saassystem.service.ITenantService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Tenant> queryList(Tenant tenant)
     {
         return tenantMapper.queryList(tenant);

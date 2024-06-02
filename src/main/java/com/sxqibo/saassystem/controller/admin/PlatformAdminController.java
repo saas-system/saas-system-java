@@ -2,21 +2,18 @@ package com.sxqibo.saassystem.controller.admin;
 
 
 import com.sxqibo.saassystem.common.core.domain.BaseResponse;
-import com.sxqibo.saassystem.common.core.exception.BaseException;
-import com.sxqibo.saassystem.common.util.ChainedMap;
 import com.sxqibo.saassystem.common.util.ServletUtils;
 import com.sxqibo.saassystem.dto.admin.AdminLoginDTO;
 import com.sxqibo.saassystem.entity.LoginUser;
 import com.sxqibo.saassystem.entity.admin.PlatformAdmin;
 import com.sxqibo.saassystem.entity.admin.PlatformMenuRule;
-import com.sxqibo.saassystem.service.*;
+import com.sxqibo.saassystem.service.IPlatformMenuRuleService;
+import com.sxqibo.saassystem.service.ISysLoginService;
+import com.sxqibo.saassystem.service.ISysPermissionService;
+import com.sxqibo.saassystem.service.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

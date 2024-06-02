@@ -18,7 +18,7 @@ public class GlobalExceptionHandler
     @ResponseBody
     public BaseResponse baseExceptionHandler(BaseException e)
     {
-        return BaseResponse.fail(e.getDefaultMessage());
+        return BaseResponse.fail(e.getMessage());
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler
         List<ObjectError> allError = e.getBindingResult().getAllErrors();
         String message = allError.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(";"));
 
-        return BaseResponse.fail("400", message);
+        return BaseResponse.fail(400, message);
     }
 
     /**
@@ -41,6 +41,6 @@ public class GlobalExceptionHandler
     @ExceptionHandler(CustomException.class)
     public BaseResponse businessException(CustomException e)
     {
-        return BaseResponse.fail(e.getCode().toString(), e.getMsg(), e.isSuccess());
+        return BaseResponse.fail(e.getCode(), e.getMsg(), e.isSuccess());
     }
 }

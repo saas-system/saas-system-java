@@ -1,5 +1,6 @@
 package com.sxqibo.saassystem.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxqibo.saassystem.common.constant.Constants;
 import com.sxqibo.saassystem.common.util.RedisCache;
 import com.sxqibo.saassystem.common.util.UUIDUtils;
@@ -7,7 +8,6 @@ import com.sxqibo.saassystem.entity.LoginUser;
 import com.sxqibo.saassystem.entity.Token;
 import com.sxqibo.saassystem.mapper.TokenMapper;
 import com.sxqibo.saassystem.service.ITokenService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -59,7 +59,7 @@ public class TokenServiceImpl
     public String createToken(LoginUser loginUser)
     {
         // 设置用户的唯一标识
-        String userKey = UUIDUtils.randomUUID();
+        String userKey = UUIDUtils.randomUuid();
         loginUser.setToken(userKey);
 
         // 保存用户信息，刷新令牌
@@ -127,6 +127,15 @@ public class TokenServiceImpl
     public void deleteLoginUser(String token)
     {
         if (!Objects.isNull(token)) {
+            String userKey = getTokenKey(token);
+            redisCache.deleteObject(userKey);
+        }
+    }
+
+    @Override
+    public void delLoginUser(String token)
+    {
+        if(!StringUtils.isEmpty(token)) {
             String userKey = getTokenKey(token);
             redisCache.deleteObject(userKey);
         }

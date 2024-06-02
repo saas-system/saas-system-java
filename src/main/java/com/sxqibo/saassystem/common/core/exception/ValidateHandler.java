@@ -15,7 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ValidateHandler extends ResponseEntityExceptionHandler
 {
-    private static final Logger LOOGER = LoggerFactory.getLogger(ValidateHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidateHandler.class);
+
 
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -23,7 +24,7 @@ public class ValidateHandler extends ResponseEntityExceptionHandler
                                                                   WebRequest request)
     {
 
-        LOOGER.error("参数校验失败:{}", ex.getBindingResult().getFieldErrors());
+        LOGGER.error("参数校验失败:{}", ex.getBindingResult().getFieldErrors());
 
         StringBuilder sb = new StringBuilder();
 

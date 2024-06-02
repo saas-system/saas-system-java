@@ -5,19 +5,26 @@ package com.sxqibo.saassystem.common.core.domain;
  */
 public enum ResultCode
 {
-    SUCCESS("200", "操作成功"),
-    ERROR("500", "操作失败");
+    SUCCESS(200, "操作成功"),
+    ERROR(500, "操作失败");
 
-    private final String code;
+    /**
+     * 状态码
+     */
+    private final Integer code;
+
+    /**
+     * 描述
+     */
     private final String msg;
 
-    ResultCode(String code, String msg)
+    ResultCode(Integer code, String msg)
     {
         this.code = code;
         this.msg = msg;
     }
 
-    public String getCode()
+    public Integer getCode()
     {
         return code;
     }

@@ -1,9 +1,9 @@
 package com.sxqibo.saassystem.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sxqibo.saassystem.entity.CrudLog;
 import com.sxqibo.saassystem.mapper.CrudLogMapper;
 import com.sxqibo.saassystem.service.ICrudLogService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
  * @since 2024-05-15
  */
 @Service
-public class CrudLogServiceImpl extends ServiceImpl<CrudLogMapper, CrudLog> implements ICrudLogService {
+public class CrudLogServiceImpl
+        extends ServiceImpl<CrudLogMapper, CrudLog>
+        implements ICrudLogService
+{
 
 }

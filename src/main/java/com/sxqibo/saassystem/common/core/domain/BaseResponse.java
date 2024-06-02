@@ -6,7 +6,7 @@ public class BaseResponse<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    private String code;
+    private Integer code;
     private String msg;
     private T data;
     private Long time;
@@ -30,6 +30,7 @@ public class BaseResponse<T> implements Serializable
         response.setCode(ResultCode.SUCCESS.getCode());
         response.setMsg(ResultCode.SUCCESS.getMsg());
         response.setData(data);
+        response.setSuccess(true);
 
         return response;
     }
@@ -40,21 +41,23 @@ public class BaseResponse<T> implements Serializable
 
         response.setCode(ResultCode.SUCCESS.getCode());
         response.setMsg(message);
+        response.setSuccess(false);
 
         return response;
     }
 
-    public static <T> BaseResponse<T> fail(String code, String message)
+    public static <T> BaseResponse<T> fail(Integer code, String message)
     {
         BaseResponse<T> response = new BaseResponse<T>();
 
         response.setCode(code);
         response.setMsg(message);
+        response.setSuccess(false);
 
         return response;
     }
 
-    public static <T> BaseResponse<T> fail(String code, String message, boolean success)
+    public static <T> BaseResponse<T> fail(Integer code, String message, boolean success)
     {
         BaseResponse<T> response = new BaseResponse<T>();
 
@@ -65,7 +68,7 @@ public class BaseResponse<T> implements Serializable
         return response;
     }
 
-    public void setCode(String code)
+    public void setCode(Integer code)
     {
         this.code = code;
     }
@@ -85,7 +88,7 @@ public class BaseResponse<T> implements Serializable
         this.time = time;
     }
 
-    public String getCode()
+    public Integer getCode()
     {
         return code;
     }

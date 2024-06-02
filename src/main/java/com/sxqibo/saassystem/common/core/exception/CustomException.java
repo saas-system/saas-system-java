@@ -2,6 +2,7 @@ package com.sxqibo.saassystem.common.core.exception;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.formula.functions.T;
+
 public class CustomException extends RuntimeException
 {
     private Integer code;

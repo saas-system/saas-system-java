@@ -5,7 +5,8 @@ package com.sxqibo.saassystem.common.enums;
  */
 public enum UserStatus
 {
-    ENABLE("1", "正常"),DISABLE("0", "停用");
+    ENABLE("1", "正常"),
+    DISABLE("0", "停用");
 
     private final String code;
     private final String info;

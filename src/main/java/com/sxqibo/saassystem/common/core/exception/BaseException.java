@@ -4,22 +4,22 @@ public class BaseException extends RuntimeException
 {
     private String code;
 
-    private String defaultMessage;
+    private String message;
 
     public BaseException()
     {
     }
 
-    public BaseException(String defaultMessage)
+    public BaseException(String message)
     {
-        this.defaultMessage = defaultMessage;
+        this.message = message;
     }
 
-    public BaseException(String code, String defaultMessage)
+    public BaseException(String code, String message)
     {
-        super(defaultMessage);
+        super(message);
         this.code = code;
-        this.defaultMessage = defaultMessage;
+        this.message = message;
     }
 
     public String getCode()
@@ -27,8 +27,8 @@ public class BaseException extends RuntimeException
         return code;
     }
 
-    public String getDefaultMessage()
+    public String getMessage()
     {
-        return defaultMessage;
+        return message;
     }
 }

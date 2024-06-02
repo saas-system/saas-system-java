@@ -25,11 +25,11 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint
                          AuthenticationException authException)
             throws IOException, ServletException
     {
-        Integer code = HttpStatus.UNAUTHORIZED;
+        int code = HttpStatus.UNAUTHORIZED;
 
         String json = JSON.toJSONString(
-                BaseResponse.fail(code.toString(),
-                        "认证失败，无法访问系统资源"));
+                BaseResponse.fail(code, "认证失败，无法访问系统资源"));
+
         ServletUtils.renderString(response, json);
     }
 }

@@ -1,8 +1,8 @@
 package com.sxqibo.saassystem.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.sxqibo.saassystem.entity.LoginUser;
 import com.sxqibo.saassystem.entity.Token;
-import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -52,4 +52,6 @@ public interface ITokenService extends IService<Token>
      * @param token
      */
     void deleteLoginUser(String token);
+
+    void delLoginUser(String token);
 }

@@ -42,4 +42,14 @@ public class AreaDTO implements Serializable {
     public void setChildren(List<AreaDTO> children) {
         this.children = children;
     }
+
+    @Override
+    public String toString()
+    {
+        return "AreaDTO{" +
+                "code=" + code +
+                ", name='" + name + '\'' +
+                ", children=" + children +
+                '}';
+    }
 }

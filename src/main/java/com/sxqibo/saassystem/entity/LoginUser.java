@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 登录用户身份权限
@@ -32,6 +33,23 @@ public class LoginUser implements UserDetails
     private PlatformAdmin platformAdmin;
 
     private TenantAdmin tenantAdmin;
+
+    /**
+     * 权限列表
+     */
+    private Set<String> permissions;
+
+    public LoginUser(PlatformAdmin platformAdmin, Set<String> permissions)
+    {
+        this.platformAdmin = platformAdmin;
+        this.permissions = permissions;
+    }
+
+    public LoginUser(TenantAdmin tenantAdmin, Set<String> permissions)
+    {
+        this.tenantAdmin = tenantAdmin;
+        this.permissions = permissions;
+    }
 
     public Long getLoginTime()
     {
@@ -82,7 +100,10 @@ public class LoginUser implements UserDetails
         this.platformAdmin = platformAdmin;
     }
 
-    public LoginUser(String token, Long loginTime, Long expireTime, PlatformAdmin platformAdmin)
+    public LoginUser(String token,
+                     Long loginTime,
+                     Long expireTime,
+                     PlatformAdmin platformAdmin)
     {
         this.token = token;
         this.loginTime = loginTime;
@@ -95,7 +116,10 @@ public class LoginUser implements UserDetails
         this.tenantAdmin = tenantAdmin;
     }
 
-    public LoginUser(String token, Long loginTime, Long expireTime, TenantAdmin tenantAdmin)
+    public LoginUser(String token,
+                     Long loginTime,
+                     Long expireTime,
+                     TenantAdmin tenantAdmin)
     {
         this.token = token;
         this.loginTime = loginTime;
@@ -134,6 +158,16 @@ public class LoginUser implements UserDetails
     public void setTenantAdmin(TenantAdmin tenantAdmin)
     {
         this.tenantAdmin = tenantAdmin;
+    }
+
+    public Set<String> getPermissions()
+    {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions)
+    {
+        this.permissions = permissions;
     }
 
     @JsonIgnore

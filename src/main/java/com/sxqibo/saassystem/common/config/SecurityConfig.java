@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.SecurityBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,6 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 
 /**
@@ -40,17 +40,13 @@ public class SecurityConfig
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-//    @Autowired
-//    private LogoutSuccessHandler logoutSuccessHandler;
-//
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
     @Autowired
     private CorsFilter corsFilter;
 
-
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-
-    /*
+    /**
      * 配置密码加密方式
      */
     @Bean
@@ -82,8 +78,14 @@ public class SecurityConfig
                 // 添加 CORS Filter
                 .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class)
                 // 确保在用户注销时，响应头依然包含跨域字段
-                .addFilterBefore(corsFilter, LogoutFilter.class);
-
+                .addFilterBefore(corsFilter, LogoutFilter.class)
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new OrRequestMatcher(
+                                new AntPathRequestMatcher("/admin/index/logout", "POST"),
+                                new AntPathRequestMatcher("/tenant/index/logout", "POST")
+                        ))
+                        .logoutSuccessHandler(logoutSuccessHandler)
+                );
 
         return http.build();
     }

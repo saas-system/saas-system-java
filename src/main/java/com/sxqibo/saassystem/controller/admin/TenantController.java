@@ -13,6 +13,7 @@ import com.sxqibo.saassystem.dto.admin.TenantIndexDTO;
 import com.sxqibo.saassystem.entity.admin.Tenant;
 import com.sxqibo.saassystem.service.ITenantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class TenantController extends BaseController
     private ITenantService tenantService;
 
     @GetMapping("index")
+    @PreAuthorize("@pe.hasPerms('tenant/tenant/index')")
     public BaseResponse<Page<Tenant>> index(TenantIndexDTO requestParams)
     {
         Page<Tenant> page = tenantService.pageIndex(requestParams);
@@ -94,6 +96,7 @@ public class TenantController extends BaseController
     }
 
     @DeleteMapping("del")
+    @PreAuthorize("@pe.hasPerms('tenant/tenant/del')")
     public BaseResponse del(@RequestParam(name = "ids[]", required = true) String[] ids)
     {
         return toAjax(tenantService.deleteTenant(ids));

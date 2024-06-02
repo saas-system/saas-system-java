@@ -1,7 +1,7 @@
 package com.sxqibo.saassystem.mapper;
 
-import com.sxqibo.saassystem.entity.Area;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sxqibo.saassystem.entity.Area;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,5 +17,9 @@ import java.util.List;
 @Mapper
 public interface AreaMapper extends BaseMapper<Area>
 {
+    /**
+     *
+     * @return
+     */
     List<Area> findAll();
 }

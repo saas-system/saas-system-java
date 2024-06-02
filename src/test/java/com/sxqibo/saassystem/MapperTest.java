@@ -72,7 +72,7 @@ public class MapperTest
     @Test
     public void testTenantAdmin()
     {
-        TenantAdmin tenantAdmin = tenantAdminMapper.selectTenantByUsername("tenant_admin");
+        TenantAdmin tenantAdmin = tenantAdminMapper.selectAdminByUsername("tenant_admin");
 
         System.out.println(tenantAdmin);
     }
