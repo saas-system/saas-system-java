@@ -17,6 +17,9 @@ public class SaasSystemApplication extends SpringBootServletInitializer
 	private static final Logger LOGGER = LoggerFactory.getLogger(SaasSystemApplication.class);
 	public static void main(String[] args)
 	{
+		// Load .env file
+		EnvLoader.loadEnv(".env");
+
 		SpringApplication.run(SaasSystemApplication.class, args);
 
 		LOGGER.info("sass-system 系统启动成功");
