@@ -33,3 +33,4 @@ build/
 .vscode/
 /src/main/java/com/sxqibo/saassystem/common/util/MysqlGenerator.java
 /.mvn/
+/logs/
