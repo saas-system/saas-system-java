@@ -1,10 +1,13 @@
 package com.sxqibo.saassystem.common.config;
 
 import com.sxqibo.saassystem.filter.JwtAuthenticationTokenFilter;
+import com.sxqibo.saassystem.security.JwtAuthenticationProvider;
+import com.sxqibo.saassystem.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -49,11 +53,11 @@ public class SecurityConfig
     /**
      * 配置密码加密方式
      */
-    @Bean
-    public PasswordEncoder passwordEncoder()
-    {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder()
+//    {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
@@ -61,11 +65,10 @@ public class SecurityConfig
     {
         http.authorizeHttpRequests((reqeusts) -> reqeusts
                         // 对于登录login 验证码captchaImage 允许匿名访问
-                    .requestMatchers("/admin/index/login", "/captchaImage", "/tenant/index/login").permitAll()
+                    .requestMatchers("/admin/index/login", "/captchaImage", "/tenant/index/login", "/admin/tenant.Tenant/exportExcel").permitAll()
                         // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated()
                 )
-                .logout(LogoutConfigurer::permitAll)
                 .exceptionHandling(exceptions->
                         //认证失败处理器
                         exceptions.authenticationEntryPoint(unauthorizedHandler)
@@ -85,7 +88,8 @@ public class SecurityConfig
                                 new AntPathRequestMatcher("/tenant/index/logout", "POST")
                         ))
                         .logoutSuccessHandler(logoutSuccessHandler)
-                );
+                )
+                .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
@@ -95,6 +99,24 @@ public class SecurityConfig
             throws Exception
     {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+    @Bean
+    public UserDetailsService userDetailsService() {
+        // 实现自己的 UserDetailsService
+        return new UserDetailsServiceImpl();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public AuthenticationProvider customAuthenticationProvider() {
+        JwtAuthenticationProvider provider = new JwtAuthenticationProvider();
+        // 配置 UserDetailsService 和 PasswordEncoder
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
 
 }

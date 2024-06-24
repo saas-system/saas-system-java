@@ -34,6 +34,7 @@ public class LoginUser implements UserDetails
 
     private TenantAdmin tenantAdmin;
 
+
     /**
      * 权限列表
      */
@@ -142,6 +143,12 @@ public class LoginUser implements UserDetails
     public String getPassword()
     {
         return !Objects.isNull(platformAdmin) ? platformAdmin.getPassword() : tenantAdmin.getPassword();
+    }
+
+    @JsonIgnore
+    public String getSalt()
+    {
+        return !Objects.isNull(platformAdmin) ? platformAdmin.getSalt() : tenantAdmin.getSalt();
     }
 
     @Override

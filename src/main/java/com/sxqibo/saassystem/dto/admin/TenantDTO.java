@@ -1,19 +1,12 @@
 package com.sxqibo.saassystem.dto.admin;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sxqibo.saassystem.entity.Area;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +17,9 @@ import java.util.List;
  * @author JiYun
  * @since 2024-05-15
  */
+@ExcelTarget("tenant")
+@AllArgsConstructor
+@NoArgsConstructor
 public class TenantDTO implements Serializable
 {
 
@@ -32,16 +28,19 @@ public class TenantDTO implements Serializable
     /**
      * 主键ID
      */
+    @Excel(name = "ID")
     private String id;
 
     /**
      * 租户名称
      */
+    @Excel(name = "租户名称")
     private String name;
 
     /**
      * 简称
      */
+    @Excel(name = "简称")
     private String shortName;
 
     /**
@@ -53,11 +52,13 @@ public class TenantDTO implements Serializable
      * 联系人
      */
     @JsonProperty("contact_name")
+    @Excel(name = "联系人")
     private String contactName;
 
     /**
      * 联系电话
      */
+    @Excel(name = "联系电话")
     private String mobile;
 
     /**
@@ -78,6 +79,7 @@ public class TenantDTO implements Serializable
     /**
      * 详细地址
      */
+    @Excel(name = "详细地址")
     private String address;
 
     /**

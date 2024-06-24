@@ -191,7 +191,8 @@ public class TenantAdmin implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getSalt() {
+    public String getSalt()
+    {
         return salt;
     }
 

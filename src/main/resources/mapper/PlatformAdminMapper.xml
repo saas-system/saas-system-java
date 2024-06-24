@@ -6,6 +6,7 @@
         <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
 
         <collection property="groups" javaType="java.util.List" resultMap="groupResult"/>
     </resultMap>
@@ -18,7 +19,7 @@
 
     <select id="selectAdminByUsername" parameterType="string"
             resultMap="adminResult">
-        select pa.id, pa.username, pa.password,
+        select pa.id, pa.username, pa.password, pa.salt,
                pag.id, pag.name, pag.rules
         from platform_admin pa
                  left join platform_admin_group_access paga on paga.uid = pa.id
